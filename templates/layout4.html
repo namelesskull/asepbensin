@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimal-ui"
+    />
+    <title>asepbensin</title>
+    <meta
+      name="description"
+      content="this website is written using c and htmx"
+    />
+    <meta itemprop="name" content="asepbensin" />
+    <meta
+      itemprop="description"
+      content="this website is written using c and htmx"
+    />
+    <meta itemprop="image" content="" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content="@asepbens.in" />
+    <meta name="twitter:url" content="https://asepbens.in" />
+    <meta name="twitter:title" content="asepbensin" />
+    <meta
+      name="twitter:description"
+      content="this website is written using c and htmx"
+    />
+    <meta name="twitter:site" content="@asepbens.in" />
+    <meta name="twitter:image" content="summary" />
+    <meta property="og:url" content="https://asepbens.in/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="asepbensin" />
+    <meta
+      property="og:description"
+      content="this website is written using c and htmx"
+    />
+    <meta property="og:image" content="" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="asepbensin" />
+    <script src="/js/htmx.min.js"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #0b0b2b;
+        --panel: #0f122a;
+        --neon: #00ffcb;
+        --accent: #ff00aa;
+        --muted: #cfcfe0;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background:
+          radial-gradient(circle at 10% 10%, #112 0%, var(--bg) 40%),
+          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" fill="%230b0b2b"/><circle cx="20" cy="20" r="1.5" fill="%23111"/></svg>');
+        color: var(--muted);
+        font-family: "Press Start 2P", monospace;
+      }
+
+      .container {
+        min-height: 70vh;
+        max-width: 1200px;
+        margin: 18px auto;
+        border: 4px double var(--neon);
+        padding: 18px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(0, 0, 0, 0.12)
+        );
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .inner-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .logo {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(45deg, var(--neon), var(--accent));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        color: #031;
+        font-size: 10px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 20px;
+        color: var(--neon);
+        text-shadow: 0 0 8px rgba(0, 255, 203, 0.12);
+      }
+
+      nav a {
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 10px;
+        padding: 6px 8px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        text-decoration: none;
+        color: var(--muted);
+        font-size: 10px;
+      }
+      nav a:hover {
+        color: var(--neon);
+      }
+
+      .marquee {
+        margin-top: 8px;
+        padding: 6px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 0, 170, 0.02)
+        );
+        border: 1px dashed rgba(255, 255, 255, 0.03);
+        overflow: hidden;
+        white-space: nowrap;
+        display: flex; /* penting! */
+      }
+
+      .marquee span {
+        display: inline-block;
+        padding-right: 40px;
+        animation: marq 48s linear infinite;
+      }
+
+      @keyframes marq {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      @keyframes marq {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      aside {
+        background: var(--panel);
+        padding: 12px;
+        border: 2px inset rgba(255, 255, 255, 0.02);
+        min-height: 300px;
+      }
+
+      main {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(0, 0, 0, 0.08)
+        );
+        padding: 12px;
+        border: 2px outset rgba(255, 255, 255, 0.02);
+        min-height: 300px;
+      }
+
+      footer {
+        margin-top: 16px;
+        padding-top: 8px;
+        border-top: 2px dotted rgba(255, 255, 255, 0.03);
+        font-size: 10px;
+        color: #aeb;
+      }
+
+      @media (max-width: 720px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        aside {
+          order: 2;
+        }
+        main {
+          order: 1;
+        }
+        header {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <div class="inner-heading">
+          <h1
+            style="cursor: pointer"
+            hx-get="/home-frag"
+            hx-target="#main"
+            hx-push-url="/"
+          >
+            asepbensin
+          </h1>
+          <nav>
+            |
+            <a hx-get="/home-frag" hx-target="#main" hx-push-url="/">home</a>
+            <a hx-get="/about-frag" hx-target="#main" hx-push-url="about"
+              >Projects</a
+            >
+            <a hx-get="/about" hx-target="#main" hx-push-url="true">About</a>
+            <a hx-get="/contact" hx-target="#main" hx-push-url="true"
+              >Contact</a
+            >
+          </nav>
+        </div>
+      </header>
+
+      <div class="marquee">
+        <span
+          >This site is served by C with libmicrohttpd, not because it is a
+          great way but because I can do it. On the client side, HTMX handles
+          the dynamic stuff, because who needs a 2-MB JavaScript framework just
+          to update a div, right?</span
+        >
+        |
+        <span
+          >This site is served by C with libmicrohttpd, not because it is a
+          great way but because I can do it. On the client side, HTMX handles
+          the dynamic stuff, because who needs a 2-MB JavaScript framework just
+          to update a div, right?</span
+        >
+      </div>
+
+      <div class="layout">
+        <aside>
+          <h3 style="font-size: 12px; color: var(--neon)">Guestbook</h3>
+
+          <div id="guestEntries"></div>
+
+          <form id="guestForm" hx-post="/guestbook" hx-target="#guestEntries">
+            <input
+              type="text"
+              name="name"
+              placeholder="name"
+              style="width: 100%; margin-bottom: 6px; font-size: 10px"
+            />
+            <textarea
+              name="message"
+              placeholder="message"
+              style="width: 100%; height: 60px; font-size: 10px"
+            ></textarea>
+            <button class="btn" style="margin-top: 6px; width: 100%">
+              Send
+            </button>
+          </form>
+        </aside>
+
+        <main id="main">{{body}}</main>
+      </div>
+
+      <footer>
+        &copy 2026 asepbensin. Made with pain using C-lang. Released under MIT
+        License.
+      </footer>
+    </div>
+  </body>
+</html>
