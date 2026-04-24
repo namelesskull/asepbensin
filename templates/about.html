@@ -1,15 +1,110 @@
-<main id="main">
-  <div class="subtitle">
-    I Almost Fail at Everything in My Life, Except Coding.
-  </div>
+<div class="subtitle">
+  I Almost Fail at Everything in My Life, Except Coding.
+</div>
 
-  <p class="description">
-    Hello everyone, my real name is Khaqul Huda. Welcome to the file called
-    <code>index.html</code>, or as normal people call it: my resume. I spend my
-    days writing trash programs while the world obsesses over bullshit statement
-    “AI will replace programmers.” Yes, I know what you’re thinking: “Who
-    willingly suffers with pointers, memory leaks, algorithm and data
-    structures?” Me. That’s who. And I do it because I can. If you’re looking
-    for someone who follows trends, well… keep scrolling. This isn’t the place.
-  </p>
-</main>
+<p class="description">
+  Hello everyone, my real name is Khaqul Huda. Welcome to the file called
+  <code>index.html</code>, or as normal people call it: my resume. I spend my
+  days writing trash programs while the world obsesses over bullshit statement
+  "AI will replace programmers." Yes, I know what you're thinking: "Who
+  willingly suffers with pointers, memory leaks, algorithm and data
+  structures?" Me. That's who. And I do it because I can. If you're looking
+  for someone who follows trends, well… keep scrolling. This isn't the place.
+</p>
+
+<div class="resume-terminal">
+  <div class="resume-line"><span class="resume-prompt">$</span> cat resume.txt</div>
+  <div class="resume-output">
+    <div class="resume-section">
+      <span class="resume-key">name</span>     <span class="resume-eq">=</span> <span class="resume-val">"Khaqul Huda"</span>
+    </div>
+    <div class="resume-section">
+      <span class="resume-key">alias</span>    <span class="resume-eq">=</span> <span class="resume-val">"asepbensin"</span>
+    </div>
+    <div class="resume-section">
+      <span class="resume-key">role</span>     <span class="resume-eq">=</span> <span class="resume-val">"guy who writes code and regrets it"</span>
+    </div>
+    <br />
+    <div class="resume-comment"># languages I mass with</div>
+    <div class="resume-section">
+      <span class="resume-key">langs[]</span>  <span class="resume-eq">=</span> <span class="resume-val">{ C, Go, JavaScript, Python, Rust }</span>
+    </div>
+    <br />
+    <div class="resume-comment"># tools that keep me alive</div>
+    <div class="resume-section">
+      <span class="resume-key">tools[]</span>  <span class="resume-eq">=</span> <span class="resume-val">{ Linux, Neovim, Git, Docker, HTMX }</span>
+    </div>
+    <br />
+    <div class="resume-comment"># things I actually enjoy</div>
+    <div class="resume-section">
+      <span class="resume-key">into[]</span>   <span class="resume-eq">=</span> <span class="resume-val">{ low-level stuff, web servers, CLI tools,</span>
+    </div>
+    <div class="resume-section">
+      <span class="resume-pad">            </span><span class="resume-val">making things from scratch, suffering }</span>
+    </div>
+    <br />
+    <div class="resume-comment"># current status</div>
+    <div class="resume-section">
+      <span class="resume-key">status</span>   <span class="resume-eq">=</span> <span class="resume-val">"compiling... with mass warnings"</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .resume-terminal {
+    background: #1a1a2e;
+    border: 1px solid rgba(255, 100, 80, 0.15);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    text-align: left;
+    max-width: 580px;
+    width: 100%;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+  }
+
+  .resume-line {
+    margin-bottom: 1rem;
+    color: #e0e0e0;
+  }
+
+  .resume-prompt {
+    color: #28c840;
+    font-weight: bold;
+  }
+
+  .resume-output {
+    padding-left: 0.25rem;
+  }
+
+  .resume-key {
+    color: #56b6c2;
+  }
+
+  .resume-eq {
+    color: #666;
+  }
+
+  .resume-val {
+    color: #e5c07b;
+  }
+
+  .resume-comment {
+    color: #546e7a;
+    font-style: italic;
+  }
+
+  .resume-pad {
+    visibility: hidden;
+  }
+
+  @media (max-width: 768px) {
+    .resume-terminal {
+      font-size: 0.7rem;
+      padding: 1rem;
+    }
+  }
+</style>

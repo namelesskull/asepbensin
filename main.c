@@ -43,23 +43,6 @@ enum MHD_Result handle_htmx(struct MHD_Connection *connection) {
   return ret;
 }
 
-enum MHD_Result handle_font(struct MHD_Connection *connection) {
-  size_t len;
-  char *buf = load_file("./assets/htmx.min.js", &len);
-  if (!buf)
-    return handle_404(connection);
-
-  struct MHD_Response *response =
-      MHD_create_response_from_buffer(len, (void *)buf, MHD_RESPMEM_MUST_FREE);
-
-  MHD_add_response_header(response, "Content-Type", "application/javascript");
-
-  enum MHD_Result ret = MHD_queue_response(connection, MHD_HTTP_OK, response);
-  MHD_destroy_response(response);
-
-  return ret;
-}
-
 enum MHD_Result router(void *cls, struct MHD_Connection *connection,
                        const char *url, const char *method, const char *version,
                        const char *upload_data, size_t *upload_data_size,

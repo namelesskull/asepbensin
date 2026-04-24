@@ -1,25 +1,377 @@
-<main>
-  <div class="profile-image">
+<div class="profile-wrapper">
+  <div class="profile-image" id="profile-hover">
     <img
       src="https://avatars.githubusercontent.com/u/83181591?v=4"
       alt="Profile Image"
     />
   </div>
+  <div class="bubble" id="profile-bubble"></div>
+</div>
 
-  <h1>asepbensin</h1>
-  <p class="subtitle">I Write Codes Not Tragedies</p>
+<h1>asepbensin</h1>
 
-  <p class="description">
-    I wrote this web server in C and HTMX, because who needs a 2 MB JavaScript
-    framework and a bunch of node_modules just to load a div, right?
-  </p>
-
-  <div class="button-group">
-    <a href="https://wa.me/62895621576020" class="btn btn-primary">
-      Contact with Human <span class="arrow">›</span>
-    </a>
-    <a href="https://ai.asepbens.in" class="btn btn-secondary">
-      Contact with AI <span class="arrow">›</span>
-    </a>
+<div class="terminal-section">
+  <div class="terminal-window">
+    <div class="terminal-titlebar">
+      <span class="terminal-dot dot-red"></span>
+      <span class="terminal-dot dot-yellow"></span>
+      <span class="terminal-dot dot-green"></span>
+      <span class="terminal-title">~</span>
+    </div>
+    <div class="terminal-body">
+      <div class="terminal-comment"># Try it in your terminal</div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">$</span>
+        <span class="terminal-cmd">curl asepbens.in</span>
+        <span class="terminal-cursor"></span>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText('curl asepbens.in');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
+      </div>
+    </div>
   </div>
-</main>
+</div>
+
+<p class="subtitle">I Write Codes Not Tragedies</p>
+
+<p class="description">
+  I wrote this web server in C and HTMX, because who needs a 2 MB JavaScript
+  framework and a bunch of node_modules just to load a div, right?
+</p>
+
+<div class="home-links">
+  <a href="https://wa.me/62895621576020" class="home-link">Contact with Human <span class="arrow">›</span></a>
+  <span class="home-sep">|</span>
+  <a href="https://ai.asepbens.in" class="home-link">Contact with AI <span class="arrow">›</span></a>
+</div>
+
+<style>
+  /* Terminal Section */
+  .terminal-section {
+    margin-bottom: 3rem;
+    width: 100%;
+    max-width: 650px;
+  }
+
+  .terminal-comment {
+    color: #546e7a;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+
+  .terminal-window {
+    background: #1a1a2e;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 100, 80, 0.15);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    text-align: left;
+  }
+
+  .terminal-titlebar {
+    background: #16162a;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .dot-red { background: #ff5f57; }
+  .dot-yellow { background: #febc2e; }
+  .dot-green { background: #28c840; }
+
+  .terminal-title {
+    color: #666;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+  }
+
+  .terminal-body {
+    padding: 1.25rem 1.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1.15rem;
+    line-height: 1.5;
+  }
+
+  .terminal-line {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .terminal-prompt {
+    color: #28c840;
+    font-weight: bold;
+  }
+
+  .terminal-cmd {
+    color: #e0e0e0;
+  }
+
+  .copy-btn {
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.08);
+    color: #888;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .copy-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #e0e0e0;
+    border-color: rgba(255, 100, 80, 0.3);
+  }
+
+  .terminal-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.1em;
+    background: #e0e0e0;
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .profile-wrapper {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .profile-wrapper .profile-image {
+    margin-bottom: 0;
+  }
+
+  .bubble {
+    position: absolute;
+    top: -10px;
+    right: -160px;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    font-size: 0.75rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 100, 80, 0.2);
+    white-space: nowrap;
+    opacity: 0;
+    transform: scale(0.8) translateY(5px);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+  }
+
+  .bubble.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  .bubble::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-right-color: #1a1a2e;
+  }
+
+  .bubble::after {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 7px solid transparent;
+    border-right-color: rgba(255, 100, 80, 0.2);
+    z-index: -1;
+  }
+
+  @media (max-width: 768px) {
+    .bubble {
+      right: auto;
+      left: 50%;
+      top: -45px;
+      transform: scale(0.8) translateX(-50%);
+    }
+
+    .bubble.visible {
+      transform: scale(1) translateX(-50%);
+    }
+
+    .bubble::before,
+    .bubble::after {
+      display: none;
+    }
+  }
+
+  .home-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .home-link {
+    color: #b0b0b0;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .home-link:hover {
+    color: #ff6450;
+  }
+
+  .home-sep {
+    color: #333;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .terminal-section {
+      max-width: 100%;
+    }
+
+    .terminal-body {
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+  }
+
+  .idle-text {
+    color: #546e7a;
+    font-style: italic;
+  }
+</style>
+
+<script>
+(function() {
+  var messages = [
+    'still here?',
+    'go touch grass',
+    'hire me already',
+    'echo "hello world"',
+    'segfault incoming...',
+    'why are you still reading this',
+    'ctrl+c to quit life',
+    'have you tried turning it off and on again?',
+    'malloc failed. just like my life.',
+    'this website has more personality than me'
+  ];
+
+  var idleTimer = null;
+  var idleInterval = null;
+  var isTyping = false;
+
+  function getCmd() {
+    return document.querySelector('.terminal-cmd');
+  }
+
+  function getCursor() {
+    return document.querySelector('.terminal-cursor');
+  }
+
+  function typeMessage(text, cb) {
+    var cmd = getCmd();
+    var cursor = getCursor();
+    if (!cmd || !cursor) return;
+
+    var idleSpan = document.createElement('span');
+    idleSpan.className = 'idle-text';
+    cmd.parentNode.insertBefore(idleSpan, cursor);
+
+    var i = 0;
+    isTyping = true;
+    var typeInt = setInterval(function() {
+      idleSpan.textContent += text[i];
+      i++;
+      if (i >= text.length) {
+        clearInterval(typeInt);
+        setTimeout(function() { eraseMessage(idleSpan, cb); }, 2000);
+      }
+    }, 70);
+  }
+
+  function eraseMessage(span, cb) {
+    var txt = span.textContent;
+    var eraseInt = setInterval(function() {
+      txt = txt.slice(0, -1);
+      span.textContent = txt;
+      if (txt.length === 0) {
+        clearInterval(eraseInt);
+        span.remove();
+        isTyping = false;
+        if (cb) cb();
+      }
+    }, 35);
+  }
+
+  function startIdle() {
+    if (isTyping) return;
+    var msg = messages[Math.floor(Math.random() * messages.length)];
+    typeMessage(' ' + msg, function() {
+      idleInterval = setTimeout(startIdle, 8000);
+    });
+  }
+
+  function resetIdle() {
+    clearTimeout(idleTimer);
+    clearTimeout(idleInterval);
+    idleTimer = setTimeout(startIdle, 30000);
+  }
+
+  document.addEventListener('mousemove', resetIdle);
+  document.addEventListener('keydown', resetIdle);
+  document.addEventListener('scroll', resetIdle);
+  resetIdle();
+})();
+
+// Profile photo hover bubble
+(function() {
+  var photo = document.getElementById('profile-hover');
+  var bubble = document.getElementById('profile-bubble');
+  if (!photo || !bubble) return;
+
+  var lines = [
+    "don't touch me, that's rude",
+    "personal space, ever heard of it?",
+    "I didn't consent to this hover",
+    "stop staring, it's creepy",
+    "yes I'm real, not an AI avatar",
+    "my face is up here... wait",
+    "hover somewhere else weirdo",
+    "you just triggered my firewall",
+    "403 Forbidden: face access denied",
+    "are you trying to inspect my element?"
+  ];
+
+  var lastIndex = -1;
+
+  photo.addEventListener('mouseenter', function() {
+    var idx;
+    do {
+      idx = Math.floor(Math.random() * lines.length);
+    } while (idx === lastIndex && lines.length > 1);
+    lastIndex = idx;
+
+    bubble.textContent = lines[idx];
+    bubble.classList.add('visible');
+  });
+
+  photo.addEventListener('mouseleave', function() {
+    bubble.classList.remove('visible');
+  });
+})();
+</script>

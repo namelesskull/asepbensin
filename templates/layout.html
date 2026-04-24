@@ -4,13 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>asepbensin == Khaqul Huda</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='15' fill='%230a0a0a'/%3E%3Ctext x='10' y='72' font-family='Courier New,monospace' font-size='65' font-weight='bold' fill='%23ff6450'%3E%3E_%3C/text%3E%3C/svg%3E" />
     <meta name="title" content="asepbensin == Khaqul Huda" />
     <meta
       name="description"
       content="I wrote this web server in C and HTMX, because who needs a 2 MB JavaScript framework and a bunch of node_modules just to load a div, right?"
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://metatags.io/" />
+    <meta property="og:url" content="https://asepbens.in/" />
     <meta property="og:title" content="asepbensin == Khaqul Huda" />
     <meta
       property="og:description"
@@ -18,10 +19,10 @@
     />
     <meta
       property="og:image"
-      content="https://metatags.io/images/meta-tags.png"
+      content="https://avatars.githubusercontent.com/u/83181591?v=4"
     />
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://metatags.io/" />
+    <meta property="twitter:url" content="https://asepbens.in/" />
     <meta property="twitter:title" content="asepbensin == Khaqul Huda" />
     <meta
       property="twitter:description"
@@ -29,7 +30,7 @@
     />
     <meta
       property="twitter:image"
-      content="https://metatags.io/images/meta-tags.png"
+      content="https://avatars.githubusercontent.com/u/83181591?v=4"
     />
 
     <!-- Meta Tags Generated with https://metatags.io -->
@@ -59,17 +60,127 @@
         justify-content: space-between;
         align-items: center;
         padding: 1.5rem 3rem;
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(0, 0, 0, 0.95);
         border-bottom: 1px solid rgba(255, 100, 80, 0.1);
+        overflow: visible;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+      }
+
+      .logo-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .logo-nail {
+        display: none;
       }
 
       .logo {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
         font-weight: bold;
         color: #ff6450;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.4rem;
+        text-decoration: none;
+        cursor: pointer;
+        background: rgba(20, 20, 40, 0.9);
+        padding: 0.2rem 0.6rem;
+        border: 1px solid rgba(255, 100, 80, 0.15);
+        border-radius: 4px;
+        transform-origin: top center;
+        transition: transform 0.15s ease;
+        animation: logo-sway 4s ease-in-out infinite;
+        position: relative;
+        transform: rotate(-2deg);
+        overflow: visible;
+      }
+
+      .logo::before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: 50%;
+        transform: translateX(-50%) rotate(8deg);
+        width: 28px;
+        height: 10px;
+        background: rgba(255, 100, 80, 0.35);
+        border-radius: 1px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        opacity: var(--tape-opacity, 1);
+        transition: opacity 0.3s;
+      }
+
+      @keyframes logo-sway {
+        0%, 100% { transform: rotate(-2.5deg); }
+        50% { transform: rotate(-1.5deg); }
+      }
+
+      .marker-note {
+        position: absolute;
+        bottom: -65px;
+        left: 6rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 4px;
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      .marker-arrow {
+        width: 40px;
+        height: 55px;
+        flex-shrink: 0;
+      }
+
+      .marker-text {
+        color: #ff6450;
+        font-family: 'Courier New', monospace;
+        font-size: 0.7rem;
+        font-style: italic;
+        opacity: 0.6;
+        line-height: 1.4;
+        margin-top: 24px;
+      }
+
+      @media (max-width: 768px) {
+        .marker-note {
+          display: none;
+        }
+      }
+
+      .logo-wrapper:hover .logo {
+        animation: none;
+      }
+
+      /* Repair hand */
+      .repair-hand {
+        position: fixed;
+        left: -60px;
+        z-index: 10001;
+        pointer-events: none;
+        transition: left 0.6s ease-in-out;
+        width: 40px;
+        height: 40px;
+        filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+      }
+
+      .repair-hand svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .repair-hand.reach {
+        left: 30px;
+      }
+
+      .repair-hand.retract {
+        left: -60px;
       }
 
       nav {
@@ -84,25 +195,146 @@
         color: #e0e0e0;
         font-size: 0.95rem;
         transition: color 0.3s;
+        position: relative;
+        padding-bottom: 4px;
       }
 
-      nav a:hover {
+      nav a:hover,
+      nav a.active {
         color: #ff6450;
       }
 
-      .cta-button {
+      nav a[hx-get]::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
         background: #ff6450;
-        color: white;
-        padding: 0.6rem 1.5rem;
-        border-radius: 4px;
+        transition: width 0.3s ease;
+      }
+
+      nav a.active::after {
+        width: 100%;
+      }
+
+      nav a[hx-get]:hover::after {
+        width: 100%;
+      }
+
+      .nav-hint {
+        color: #444;
+        font-size: 0.7rem;
+        margin-left: 0.15rem;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        z-index: 10001;
+      }
+
+      .hamburger span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #e0e0e0;
+        transition: all 0.3s;
+      }
+
+      .hamburger.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .hamburger.open span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .mobile-nav {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 10, 10, 0.97);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Courier New', monospace;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .mobile-nav.open {
+        display: flex;
+        opacity: 1;
+      }
+
+      .mobile-nav-inner {
+        text-align: left;
+        width: 80%;
+        max-width: 350px;
+      }
+
+      .mobile-nav-header {
+        color: #e0e0e0;
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .mobile-nav-link {
+        display: block;
+        color: #e0e0e0;
         text-decoration: none;
-        font-weight: bold;
-        transition: background 0.3s;
+        font-size: 1.1rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: color 0.2s, padding-left 0.2s;
+        cursor: pointer;
+      }
+
+      .mobile-nav-link:hover {
+        color: #ff6450;
+        padding-left: 0.5rem;
+      }
+
+      .mobile-nav-prefix {
+        color: #444;
+        font-size: 0.75rem;
+        margin-right: 0.75rem;
+      }
+
+      .mobile-nav-footer {
+        margin-top: 2rem;
+        color: #e0e0e0;
+        font-size: 1rem;
+      }
+
+      .cta-button {
+        background: transparent;
+        color: #666;
+        padding: 0.4rem 0.9rem;
+        border-radius: 4px;
+        border: 1px dashed #444;
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: all 0.3s;
+        position: relative;
       }
 
       .cta-button:hover {
-        background: #ff4a30;
-        color: white;
+        color: #ff6450;
+        border-color: #ff6450;
+        border-style: solid;
+        background: rgba(255, 100, 80, 0.08);
       }
 
       main {
@@ -113,6 +345,11 @@
         justify-content: center;
         padding: 3rem 2rem;
         text-align: center;
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      main.htmx-swapping {
+        opacity: 0;
       }
 
       .profile-image {
@@ -156,38 +393,14 @@
         line-height: 1.8;
       }
 
-      .stats {
-        display: flex;
-        gap: 2rem;
-        margin-bottom: 3rem;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .stat-card {
-        background: rgba(20, 30, 50, 0.6);
-        padding: 2rem;
-        border-radius: 8px;
-        min-width: 250px;
-        border: 1px solid rgba(255, 100, 80, 0.2);
-      }
-
-      .stat-icon {
-        font-size: 2rem;
+      code {
+        background: rgba(255, 100, 80, 0.1);
         color: #ff6450;
-        margin-bottom: 1rem;
-      }
-
-      .stat-number {
-        font-size: 1.8rem;
-        color: white;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-      }
-
-      .stat-label {
-        color: #888;
-        font-size: 0.9rem;
+        padding: 0.15rem 0.45rem;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9em;
+        border: 1px solid rgba(255, 100, 80, 0.15);
       }
 
       /* Buttons */
@@ -210,6 +423,7 @@
         gap: 0.8rem;
         font-family: "Courier New", monospace;
         font-weight: bold;
+        text-decoration: none;
       }
 
       .btn-primary {
@@ -240,38 +454,138 @@
 
       /* Footer */
       .site-footer {
-        text-align: center;
-        padding: 1rem 0;
-        font-size: 0.9rem;
-        color: #aaa;
-        border-top: 1px solid #444;
+        position: relative;
+        padding: 3rem 3rem;
+        font-size: 0.85rem;
+        color: #666;
+        border-top: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        overflow: hidden;
+      }
+
+      .site-footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 100, 80, 0.3) 20%,
+          rgba(255, 100, 80, 0.5) 50%,
+          rgba(255, 100, 80, 0.3) 80%,
+          transparent 100%
+        );
+      }
+
+      .footer-terminal {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: 'Courier New', monospace;
+      }
+
+      .footer-prompt {
+        color: #ff6450;
+        font-weight: bold;
+        user-select: none;
+      }
+
+      .footer-text {
+        color: #888;
+        position: relative;
+      }
+
+      .footer-cursor {
+        display: inline-block;
+        width: 8px;
+        height: 1.1em;
+        background: #ff6450;
+        margin-left: 4px;
+        vertical-align: text-bottom;
+        animation: footer-blink 1s step-end infinite;
+      }
+
+      @keyframes footer-blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+
+      .footer-tape {
+        position: relative;
+        background: rgba(255, 100, 80, 0.12);
+        border: 1px solid rgba(255, 100, 80, 0.15);
+        padding: 0.2rem 0.8rem;
+        border-radius: 2px;
+        color: #ff6450;
+        font-size: 0.7rem;
+        font-style: italic;
+        transform: rotate(-1.5deg);
+        white-space: nowrap;
+        user-select: none;
+        flex-shrink: 0;
+      }
+
+      .footer-tape::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        transform: translateX(-50%) rotate(5deg);
+        width: 20px;
+        height: 7px;
+        background: rgba(255, 100, 80, 0.25);
+        border-radius: 1px;
+      }
+
+      @media (max-width: 768px) {
+        .site-footer {
+          padding: 2rem 1.5rem;
+        }
+
+        .footer-terminal {
+          flex-wrap: wrap;
+          justify-content: center;
+          text-align: center;
+          font-size: 0.75rem;
+          gap: 0.3rem;
+        }
+
+        .footer-cursor {
+          display: none;
+        }
+
+        .footer-tape {
+          font-size: 0.6rem;
+        }
       }
 
       /* Responsive */
       @media (max-width: 768px) {
         header {
-          flex-direction: column;
-          gap: 1.5rem;
-          padding: 1rem;
+          padding: 1rem 1.5rem;
         }
 
         nav {
-          flex-direction: column;
-          gap: 1rem;
-          width: 100%;
+          display: none;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+
+        .nav-hint {
+          display: none;
         }
 
         h1 {
           font-size: 2.5rem;
-        }
-
-        .stats {
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .stat-card {
-          min-width: 100%;
         }
 
         .button-group {
@@ -286,16 +600,118 @@
       }
     </style>
     <script src="/js/htmx.min.js"></script>
+    <script>
+      function setActiveNav() {
+        var path = window.location.pathname;
+        document.querySelectorAll('nav a[hx-get]').forEach(function(a) {
+          var url = a.getAttribute('hx-push-url');
+          if (url && url !== '/' && url[0] !== '/') url = '/' + url;
+          a.classList.toggle('active',
+            url === path || (url === '/' && path === '/') ||
+            (url !== '/' && path.startsWith(url))
+          );
+        });
+      }
+      document.addEventListener('DOMContentLoaded', setActiveNav);
+      document.addEventListener('htmx:pushedIntoHistory', setActiveNav);
+
+      // Hamburger menu
+      function closeMobileNav() {
+        document.getElementById('hamburger').classList.remove('open');
+        document.getElementById('mobile-nav').classList.remove('open');
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('hamburger').addEventListener('click', function() {
+          this.classList.toggle('open');
+          document.getElementById('mobile-nav').classList.toggle('open');
+        });
+      });
+
+      // Keyboard shortcuts
+      function navigateTo(fragUrl, pushUrl) {
+        htmx.ajax('GET', fragUrl, {target: '#main', swap: 'innerHTML swap:200ms'});
+        history.pushState({}, '', pushUrl);
+        setActiveNav();
+        closeMobileNav();
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        switch(e.key) {
+          case '1':
+            navigateTo('/home-frag', '/');
+            break;
+          case '2':
+            navigateTo('/about-frag', '/about');
+            break;
+          case '3':
+            navigateTo('/contact-frag', '/contact');
+            break;
+          case 'd':
+          case 'D':
+            var destroyBtn = document.getElementById('destroy-btn');
+            if (destroyBtn) destroyBtn.click();
+            break;
+        }
+      });
+
+      // Konami code: up up down down left right left right b a
+      (function() {
+        var konamiSeq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+        var konamiPos = 0;
+        var konamiActive = false;
+
+        document.addEventListener('keydown', function(e) {
+          if (konamiActive) return;
+          if (e.key === konamiSeq[konamiPos]) {
+            konamiPos++;
+            if (konamiPos === konamiSeq.length) {
+              konamiActive = true;
+              konamiPos = 0;
+
+              // Comic Sans mode
+              document.body.style.fontFamily = '"Comic Sans MS", "Comic Sans", cursive';
+              document.querySelectorAll('*').forEach(function(el) {
+                el.style.fontFamily = '"Comic Sans MS", "Comic Sans", cursive';
+              });
+
+              // Show secret message
+              var msg = document.createElement('div');
+              msg.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#ff6450;color:#0a0a0a;text-align:center;padding:0.75rem;font-family:"Comic Sans MS",cursive;font-weight:bold;font-size:1rem;z-index:9999;cursor:pointer;';
+              msg.textContent = 'CHEAT CODE ACTIVATED: professional mode disabled. Click to undo.';
+              document.body.appendChild(msg);
+
+              msg.addEventListener('click', function() {
+                document.body.style.fontFamily = '';
+                document.querySelectorAll('*').forEach(function(el) {
+                  el.style.fontFamily = '';
+                });
+                msg.remove();
+                konamiActive = false;
+              });
+            }
+          } else {
+            konamiPos = 0;
+          }
+        });
+      })();
+    </script>
   </head>
   <body>
     <header>
-      <div class="logo">⏻ asepbens.in</div>
-      <nav>
-        <a hx-get="/home-frag" hx-target="#main" hx-push-url="/">home</a>
-        <a hx-get="/about-frag" hx-target="#main" hx-push-url="about">about</a>
-        <a hx-get="/contact-frag" hx-target="#main" hx-push-url="/contact"
-          >contact</a
-        >
+      <div class="logo-wrapper" id="logo-wrapper">
+        <div class="logo-nail"></div>
+        <a class="logo" id="logo" hx-get="/home-frag" hx-target="#main" hx-push-url="/">⏻ asepbens.in</a>
+      </div>
+      <button id="hamburger" class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="nav">
+        <a hx-get="/home-frag" hx-target="#main" hx-push-url="/">~/home <span class="nav-hint">[1]</span></a>
+        <a hx-get="/about-frag" hx-target="#main" hx-push-url="about">~/about <span class="nav-hint">[2]</span></a>
+        <a hx-get="/contact-frag" hx-target="#main" hx-push-url="/contact">~/contact <span class="nav-hint">[3]</span></a>
         <a
           href="https://youtu.be/xvFZjo5PgG0?si=hyM4W77D9UCh9GSq"
           class="cta-button"
@@ -305,12 +721,537 @@
           Don't click this
         </a>
       </nav>
+      <div class="marker-note">
+        <svg class="marker-arrow" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25 55 C 22 40, 15 25, 10 5" stroke="#ff6450" stroke-width="1.5" stroke-linecap="round" fill="none" stroke-dasharray="4 3"/>
+          <path d="M7 8 L10 1 L14 7" stroke="#ff6450" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span class="marker-text">broken tape, don't<br/>hover or it falls</span>
+      </div>
     </header>
 
-    <main id="main">{{body}}</main>
+    <!-- Mobile terminal overlay -->
+    <div id="mobile-nav" class="mobile-nav">
+      <div class="mobile-nav-inner">
+        <div class="mobile-nav-header">
+          <span class="ct-prompt">$</span> ls ~/
+        </div>
+        <a hx-get="/home-frag" hx-target="#main" hx-push-url="/" class="mobile-nav-link" onclick="closeMobileNav()">
+          <span class="mobile-nav-prefix">drwxr-xr-x</span> home/
+        </a>
+        <a hx-get="/about-frag" hx-target="#main" hx-push-url="about" class="mobile-nav-link" onclick="closeMobileNav()">
+          <span class="mobile-nav-prefix">drwxr-xr-x</span> about/
+        </a>
+        <a hx-get="/contact-frag" hx-target="#main" hx-push-url="/contact" class="mobile-nav-link" onclick="closeMobileNav()">
+          <span class="mobile-nav-prefix">drwxr-xr-x</span> contact/
+        </a>
+        <a href="https://youtu.be/xvFZjo5PgG0?si=hyM4W77D9UCh9GSq" target="_blank" rel="noopener noreferrer" class="mobile-nav-link">
+          <span class="mobile-nav-prefix">-rwx------</span> <span style="color:#ff6450;">dont_click*</span>
+        </a>
+        <div class="mobile-nav-footer">
+          <span class="ct-prompt">$</span> <span class="terminal-cursor"></span>
+        </div>
+      </div>
+    </div>
+
+    <main id="main" hx-swap="innerHTML swap:200ms">{{body}}</main>
 
     <footer class="site-footer">
-      Made with pain using C programming language.
+      <div class="footer-terminal">
+        <span class="footer-prompt">$</span>
+        <span class="footer-text">Made with pain using C programming language.</span>
+        <span class="footer-cursor"></span>
+      </div>
+      <div class="footer-tape">i use arch btw</div>
     </footer>
+
+    <button id="destroy-btn" title="Don't.">rm -rf /</button>
+    <button id="shutdown-btn">Shutdown the server (it worked)</button>
+
+    <div id="ctx-menu" class="ctx-menu">
+      <div class="ctx-item" onclick="window.location='/'">cd ~</div>
+      <div class="ctx-item" onclick="window.open('https://github.com/namelesskull/asepbensin','_blank')">cat source.c <span class="ctx-hint">you won't understand it</span></div>
+      <div class="ctx-item" onclick="document.querySelector('#destroy-btn').click()">rm -rf / <span class="ctx-hint">do it, coward</span></div>
+      <div class="ctx-divider"></div>
+      <div class="ctx-item" onclick="navigator.clipboard.writeText(location.href)">cp url /clipboard</div>
+      <div class="ctx-item ctx-disabled">steal design <span class="ctx-hint">I dare you</span></div>
+      <div class="ctx-divider"></div>
+      <div class="ctx-item" onclick="triggerHireBubble()">sudo hire asepbensin</div>
+    </div>
+
+    <style>
+      #destroy-btn {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        background: rgba(255, 50, 30, 0.15);
+        color: #ff6450;
+        border: 1px solid #ff6450;
+        padding: 0.6rem 1.2rem;
+        border-radius: 6px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.85rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        z-index: 999;
+        box-shadow: 0 0 12px rgba(255, 100, 80, 0.25);
+        animation: destroy-pulse 2s ease-in-out infinite;
+      }
+
+      #destroy-btn:hover {
+        background: #ff6450;
+        color: #0a0a0a;
+        transform: scale(1.1);
+        box-shadow: 0 0 25px rgba(255, 100, 80, 0.5);
+      }
+
+      @keyframes destroy-pulse {
+        0%, 100% { box-shadow: 0 0 12px rgba(255, 100, 80, 0.25); }
+        50% { box-shadow: 0 0 20px rgba(255, 100, 80, 0.45); }
+      }
+
+      #shutdown-btn {
+        position: fixed;
+        bottom: 1.5rem;
+        left: 1.5rem;
+        background: rgba(40, 200, 64, 0.1);
+        color: #28c840;
+        border: 1px solid #28c840;
+        padding: 0.6rem 1.2rem;
+        border-radius: 6px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.8rem;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 999;
+        transition: left 0.15s ease-out, top 0.15s ease-out, bottom 0.15s ease-out;
+      }
+
+      #shutdown-btn:hover {
+        background: rgba(40, 200, 64, 0.2);
+        box-shadow: 0 0 15px rgba(40, 200, 64, 0.3);
+      }
+
+      .profile-image.angry {
+        animation: shake 0.3s ease-in-out;
+        border-color: #ff3333 !important;
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0) rotate(0deg); }
+        15% { transform: translateX(-4px) rotate(-3deg); }
+        30% { transform: translateX(4px) rotate(3deg); }
+        45% { transform: translateX(-3px) rotate(-2deg); }
+        60% { transform: translateX(3px) rotate(2deg); }
+        75% { transform: translateX(-2px) rotate(-1deg); }
+        90% { transform: translateX(2px) rotate(1deg); }
+      }
+
+      @media (max-width: 768px) {
+        #shutdown-btn {
+          display: none;
+        }
+      }
+
+      .ctx-menu {
+        display: none;
+        position: fixed;
+        z-index: 10000;
+        background: #141422;
+        border: 1px solid rgba(255, 100, 80, 0.2);
+        border-radius: 8px;
+        padding: 0.4rem 0;
+        min-width: 260px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        font-family: 'Courier New', monospace;
+        font-size: 0.85rem;
+      }
+
+      .ctx-menu.visible {
+        display: block;
+      }
+
+      .ctx-item {
+        padding: 0.5rem 1rem;
+        color: #e0e0e0;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        transition: background 0.15s;
+      }
+
+      .ctx-item:hover {
+        background: rgba(255, 100, 80, 0.12);
+        color: #ff6450;
+      }
+
+      .ctx-hint {
+        color: #555;
+        font-size: 0.7rem;
+        font-style: italic;
+      }
+
+      .ctx-disabled {
+        color: #444;
+        cursor: not-allowed;
+        text-decoration: line-through;
+      }
+
+      .ctx-disabled:hover {
+        background: none;
+        color: #444;
+      }
+
+      .ctx-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.06);
+        margin: 0.3rem 0;
+      }
+
+      .falling {
+        transition: none !important;
+        animation: fall var(--fall-duration, 1s) var(--fall-delay, 0s) cubic-bezier(0.55, 0, 1, 0.45) forwards !important;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        60% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(var(--fall-distance, 120vh)) rotate(var(--fall-rotate, 25deg)) translateX(var(--fall-drift, 0px));
+          opacity: 0;
+        }
+      }
+    </style>
+
+    <script>
+      // Hire bubble via profile photo
+      var hireBubbleTimeout = null;
+      var hireLines = [
+        "you sure you can pay good money? if yes, contact me then",
+        "sudo requires root privileges. and a budget.",
+        "permission granted. terms & conditions: pay me.",
+        "my rate is $$$... just kidding, let's talk",
+        "hire me? bold move. I respect that.",
+        "warning: freelancer rates may cause bankruptcy"
+      ];
+      var lastHireIdx = -1;
+      function triggerHireBubble() {
+        var bubble = document.getElementById('profile-bubble');
+        if (!bubble) return;
+        var idx;
+        do {
+          idx = Math.floor(Math.random() * hireLines.length);
+        } while (idx === lastHireIdx && hireLines.length > 1);
+        lastHireIdx = idx;
+        bubble.textContent = hireLines[idx];
+        bubble.classList.add('visible');
+        clearTimeout(hireBubbleTimeout);
+        hireBubbleTimeout = setTimeout(function() {
+          bubble.classList.remove('visible');
+        }, 4000);
+      }
+
+      // Custom right-click menu
+      (function() {
+        var menu = document.getElementById('ctx-menu');
+
+        document.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+          var x = e.clientX;
+          var y = e.clientY;
+
+          // Keep menu within viewport
+          var menuW = 260;
+          var menuH = 280;
+          if (x + menuW > window.innerWidth) x = window.innerWidth - menuW - 10;
+          if (y + menuH > window.innerHeight) y = window.innerHeight - menuH - 10;
+
+          menu.style.left = x + 'px';
+          menu.style.top = y + 'px';
+          menu.classList.add('visible');
+        });
+
+        document.addEventListener('click', function() {
+          menu.classList.remove('visible');
+        });
+
+        document.addEventListener('scroll', function() {
+          menu.classList.remove('visible');
+        });
+      })();
+
+      // Shutdown button that runs away from cursor
+      (function() {
+        var btn = document.getElementById('shutdown-btn');
+        if (!btn || window.innerWidth <= 768) return;
+
+        var triggerDist = 150;
+
+        var angryLines = [
+          "STOP CHASING THAT BUTTON",
+          "I said don't touch it!!",
+          "are you seriously still trying?",
+          "bro it's not gonna happen",
+          "you're making me angry...",
+          "I will mass segfault on you",
+          "this is harassment",
+          "my lawyer will hear about this",
+          "LEAVE. THE. BUTTON. ALONE.",
+          "skill issue tbh",
+          "you think you're clever huh?",
+          "I'm literally shaking rn (see?)"
+        ];
+        var lastAngryIdx = -1;
+        var angryTimeout = null;
+
+        function triggerAngryPhoto() {
+          var photo = document.getElementById('profile-hover');
+          var bubble = document.getElementById('profile-bubble');
+          if (!photo || !bubble) return;
+
+          // Shake
+          photo.classList.remove('angry');
+          void photo.offsetWidth; // force reflow to restart animation
+          photo.classList.add('angry');
+
+          // Angry bubble
+          var idx;
+          do {
+            idx = Math.floor(Math.random() * angryLines.length);
+          } while (idx === lastAngryIdx && angryLines.length > 1);
+          lastAngryIdx = idx;
+
+          bubble.textContent = angryLines[idx];
+          bubble.classList.add('visible');
+
+          clearTimeout(angryTimeout);
+          angryTimeout = setTimeout(function() {
+            bubble.classList.remove('visible');
+            photo.classList.remove('angry');
+          }, 2000);
+        }
+
+        function getRandomSafeSpot(mouseX, mouseY, bw, bh) {
+          var maxX = window.innerWidth - bw - 20;
+          var maxY = window.innerHeight - bh - 20;
+          var safeX, safeY, attempts = 0;
+          do {
+            safeX = 20 + Math.random() * maxX;
+            safeY = 20 + Math.random() * maxY;
+            var d = Math.sqrt(Math.pow(mouseX - safeX, 2) + Math.pow(mouseY - safeY, 2));
+            attempts++;
+          } while (d < 300 && attempts < 50);
+          return { x: safeX, y: safeY };
+        }
+
+        document.addEventListener('mousemove', function(e) {
+          var rect = btn.getBoundingClientRect();
+          var btnCX = rect.left + rect.width / 2;
+          var btnCY = rect.top + rect.height / 2;
+          var dx = e.clientX - btnCX;
+          var dy = e.clientY - btnCY;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < triggerDist) {
+            // Profile photo gets angry every dodge
+            triggerAngryPhoto();
+
+            var angle = Math.atan2(dy, dx);
+            var escape = 180 + Math.random() * 100;
+            var newX = rect.left - Math.cos(angle) * escape;
+            var newY = rect.top - Math.sin(angle) * escape;
+
+            var maxX = window.innerWidth - rect.width - 20;
+            var maxY = window.innerHeight - rect.height - 20;
+            newX = Math.max(20, Math.min(newX, maxX));
+            newY = Math.max(20, Math.min(newY, maxY));
+
+            var newDx = e.clientX - (newX + rect.width / 2);
+            var newDy = e.clientY - (newY + rect.height / 2);
+            var newDist = Math.sqrt(newDx * newDx + newDy * newDy);
+
+            if (newDist < triggerDist) {
+              var safe = getRandomSafeSpot(e.clientX, e.clientY, rect.width, rect.height);
+              newX = safe.x;
+              newY = safe.y;
+              btn.style.transition = 'none';
+              setTimeout(function() {
+                btn.style.transition = '';
+              }, 50);
+            }
+
+            btn.style.position = 'fixed';
+            btn.style.left = newX + 'px';
+            btn.style.top = newY + 'px';
+            btn.style.bottom = 'auto';
+          }
+        });
+
+        btn.addEventListener('click', function() {
+          alert('stop it, find a job man!');
+        });
+      })();
+
+      // Logo fall + stickmen repair
+      (function() {
+        var wrapper = document.getElementById('logo-wrapper');
+        var logo = document.getElementById('logo');
+        if (!wrapper || !logo) return;
+
+        var fallen = false;
+        var bubbleTimeout = null;
+
+        var fallLines = [
+          "oops, the tape gave up",
+          "told you this site was held together by duct tape",
+          "great, now I have to fix that too",
+          "gravity: 1, my logo: 0",
+          "not again...",
+          "this is what happens when you hover everything",
+          "hold on, let me tape that back",
+          "cheap tape, cheap website"
+        ];
+        var lastFallIdx = -1;
+
+        function showBubble(text) {
+          var photo = document.getElementById('profile-hover');
+          var bubble = document.getElementById('profile-bubble');
+          if (!photo || !bubble) return;
+          bubble.textContent = text;
+          bubble.classList.add('visible');
+          clearTimeout(bubbleTimeout);
+          bubbleTimeout = setTimeout(function() {
+            bubble.classList.remove('visible');
+          }, 3500);
+        }
+
+        wrapper.addEventListener('mouseenter', function() {
+          if (fallen) return;
+          fallen = true;
+
+          // Calculate fall distance: from logo to bottom of header
+          var headerEl = wrapper.closest('header');
+          var logoRect = logo.getBoundingClientRect();
+          var headerRect = headerEl.getBoundingClientRect();
+          var fallDist = headerRect.bottom - logoRect.bottom - 2;
+
+          // Show bubble
+          var idx;
+          do {
+            idx = Math.floor(Math.random() * fallLines.length);
+          } while (idx === lastFallIdx && fallLines.length > 1);
+          lastFallIdx = idx;
+          showBubble(fallLines[idx]);
+
+          // Phase 1: Fall to ground
+          logo.style.animation = 'none';
+          logo.style.transition = 'transform 0.5s cubic-bezier(0.55, 0, 1, 0.45)';
+          logo.style.transform = 'rotate(8deg) translateY(' + fallDist + 'px)';
+
+          // Tape detaches
+          logo.style.setProperty('--tape-opacity', '0');
+
+          setTimeout(function() {
+            // Bounce on landing
+            logo.style.transition = 'transform 0.15s ease-out';
+            logo.style.transform = 'rotate(-3deg) translateY(' + (fallDist - 3) + 'px)';
+
+            setTimeout(function() {
+              logo.style.transition = 'transform 0.1s ease-in';
+              logo.style.transform = 'rotate(1deg) translateY(' + fallDist + 'px)';
+
+              // Phase 2: Hand comes to repair
+              setTimeout(function() { repairWithHand(fallDist); }, 400);
+            }, 150);
+          }, 500);
+        });
+
+        function repairWithHand(fallDist) {
+          // Create the hand element
+          var hand = document.createElement('div');
+          hand.className = 'repair-hand';
+          hand.innerHTML = '<svg viewBox="-14.5 0 144 144" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><path d="M7.30095 86.3697C8.24677 87.4237 9.23784 88.4739 10.1974 89.4892C12.7412 92.0345 15.0652 94.7905 17.1447 97.7276C19.2428 101.034 21.1454 104.459 22.843 107.987C23.7881 109.859 24.7662 111.794 25.7907 113.661L26.3636 114.705C28.7264 119.009 31.1655 123.459 33.8584 127.654C35.3317 129.809 37.1479 131.709 39.2351 133.278C43.0955 136.24 47.3789 138.604 51.9419 140.294C56.7893 142.231 61.9619 143.226 67.1819 143.224C73.0739 143.152 78.9074 142.051 84.4206 139.972C88.4564 138.445 92.1884 136.213 95.4418 133.379C99.75 129.731 103.017 125.061 106.036 118.236C109.186 111.113 110.265 103.437 111.308 96.0145C111.617 93.8152 111.936 91.5409 112.304 89.3199C112.64 86.9853 112.826 84.6323 112.862 82.2741C112.919 80.7212 112.979 79.1158 113.125 77.5531C114.317 64.9232 113.991 53.5882 112.127 42.8984C111.509 39.2286 110.54 35.6265 109.234 32.1418C107.024 26.366 101.64 22.7613 96.133 23.3671C95.0946 23.5174 94.074 23.7709 93.0856 24.124C92.7318 24.2362 92.3748 24.3504 92.0125 24.4567C91.9377 24.0774 91.872 23.7039 91.8077 23.3377C91.6587 22.3228 91.425 21.3222 91.11 20.3461C90.9131 19.7888 90.7228 19.2257 90.5318 18.6613C89.8695 16.426 88.9572 14.2728 87.8119 12.2423C87.1556 11.1579 86.2721 10.2286 85.222 9.51854C84.1719 8.80851 82.9806 8.33437 81.7296 8.129C80.3822 7.91661 79.0045 7.99452 77.6892 8.35741C76.3739 8.7203 75.1518 9.35983 74.1036 10.2332C73.6442 10.608 73.2045 11.0031 72.7995 11.3661C72.7339 11.4232 72.6735 11.4796 72.6111 11.5347C72.2364 10.8521 71.8734 10.1768 71.5144 9.50862C70.5568 7.72798 69.6524 6.04512 68.6219 4.40427C66.9154 1.68506 64.1746 0.523993 60.6986 1.0425C59.1869 1.23253 57.7415 1.77681 56.48 2.63106C55.2184 3.48532 54.1766 4.62539 53.439 5.95847C52.399 7.93532 51.4658 9.96649 50.6436 12.0434C50.3555 12.7372 50.0672 13.4289 49.7719 14.1141C49.6793 13.9658 49.5856 13.8129 49.4897 13.6547C48.9465 12.7381 48.3564 11.85 47.7221 10.9939C45.1139 7.58949 41.6708 6.84058 37.7689 8.828C33.2887 11.1081 32.3376 15.4373 32.0114 18.4952C31.5734 22.297 31.3445 26.12 31.3256 29.947C31.3472 38.7852 31.4503 47.7698 31.5494 56.4584C31.5932 60.1851 31.6337 63.9118 31.6709 67.6384C31.6833 68.9058 31.6799 70.1732 31.6766 71.4406V72.8078C31.5198 72.6765 31.3663 72.5452 31.2121 72.4074C30.9095 72.1449 30.5957 71.8679 30.2596 71.6231C23.5577 66.7498 16.4228 65.0335 9.05413 66.522C7.45463 66.8069 5.953 67.4908 4.6889 68.5114C3.42481 69.532 2.43923 70.8551 1.82383 72.3588C1.21978 73.9439 1.02 75.6543 1.24265 77.3352C1.46529 79.0167 2.10344 80.6162 3.09917 81.9893C3.84328 82.9803 4.68931 83.89 5.62341 84.7039C6.1918 85.2388 6.78113 85.7901 7.30095 86.3697ZM37.7997 80.7908C37.6684 73.0749 37.5017 65.0387 37.2923 56.2202C37.2503 54.4258 37.1736 52.6031 37.1001 50.8382C36.9616 47.5296 36.8179 44.1087 36.894 40.7548C37.0561 33.6145 37.503 26.3587 37.9349 19.3418L37.9822 18.5845C38.1882 15.2299 39.4353 13.465 42.0213 12.8789C44.1328 14.2572 45.4422 16.5282 46.021 19.8263C46.8927 24.7792 47.506 29.7741 47.8587 34.7908C48.2932 41.0568 48.624 47.4377 48.9443 53.608C49.1294 57.1903 49.3152 60.7719 49.5213 64.3522C49.5775 65.1853 49.822 65.9948 50.2366 66.7196C50.5531 67.2827 51.0586 67.7152 51.6637 67.941C52.2687 68.1661 52.9342 68.1707 53.542 67.9522C54.1184 67.8439 54.6355 67.5295 54.9971 67.0674C55.3587 66.6054 55.5399 66.028 55.507 65.4424C55.5024 64.5951 55.5235 63.7458 55.5445 62.8965C55.6245 61.1528 55.5933 59.4058 55.4512 57.666C54.5127 48.6158 54.9793 39.414 55.4302 30.5154L55.5326 28.4879C55.7295 24.5499 56.0531 20.6847 56.3754 17.0906C56.6773 13.7164 57.6972 11.0437 59.493 8.91917C60.4519 7.78567 61.2323 7.26722 61.8656 7.32826C62.518 7.3939 63.1698 8.05024 63.916 9.40689C66.4101 13.9317 67.0519 19.0288 67.493 23.8621C68.4926 34.8137 68.5011 46.4177 67.5212 61.4859C67.4674 62.3175 67.365 63.1656 67.2666 63.986C67.1406 65.0282 67.0106 66.1065 66.9758 67.1777C66.9259 68.6695 67.3007 69.7374 68.0876 70.353C68.8746 70.9687 70.0002 71.075 71.431 70.6635C72.4359 70.4187 73.3357 69.8562 73.996 69.0594C74.6569 68.2633 75.0435 67.2755 75.0986 66.2425L75.2056 65.1031C75.5522 62.0147 75.7399 58.9104 75.7675 55.8028C75.6979 47.699 75.4649 39.4599 75.2424 31.4959L75.1879 29.5552C75.1636 28.6921 75.079 27.8185 74.9976 26.9731C74.7659 24.5768 74.5473 22.3131 75.545 20.0816L75.8685 19.3465C76.3693 18.0632 77.0184 16.8429 77.8028 15.7104C78.0804 15.2816 78.4663 14.934 78.9218 14.7028C79.3773 14.4715 79.8853 14.3649 80.3953 14.3937C80.8862 14.4851 81.3444 14.7052 81.7224 15.0314C82.1005 15.3576 82.3853 15.7783 82.5474 16.2505C83.3757 18.3085 84.0078 20.4401 84.4357 22.6169C86.0267 29.7796 85.7825 37.1877 85.5462 44.349L85.5357 44.6627C85.2555 53.1577 85.136 61.6501 85.0481 69.5615C85.0199 72.1521 85.8678 73.2705 88.4085 73.9938C88.8522 74.1644 89.3294 74.232 89.8032 74.19C90.2771 74.1487 90.7352 73.999 91.1428 73.7535C91.5064 73.4569 91.7979 73.0801 91.9934 72.6535C92.1897 72.2269 92.2849 71.7602 92.2724 71.291C92.3682 69.7906 92.3662 68.2646 92.3649 66.7885C92.3649 66.1506 92.3649 65.5126 92.3702 64.8752C92.3846 63.4869 92.3977 62.0987 92.4089 60.7109C92.4352 57.7324 92.4621 54.7533 92.5126 51.7748C92.5382 50.2915 92.5874 48.8075 92.6367 47.3242C92.7246 44.6988 92.8145 41.9803 92.7679 39.307C92.7161 36.5583 93.9671 34.3576 95.3276 32.3892C95.5042 32.0785 95.7411 31.8065 96.024 31.5891C96.3075 31.3717 96.6318 31.2135 96.9777 31.1237C97.3774 31.0903 97.7804 31.1365 98.1624 31.2596C98.5437 31.3827 98.8975 31.5804 99.2027 31.8412C100.909 33.0354 102.079 34.8514 102.461 36.8988L102.923 39.1784C104.022 44.5827 105.155 50.1714 105.895 55.7122C106.808 63.2748 106.835 70.9182 105.974 78.487C105.878 79.4033 105.869 80.3261 105.948 81.2437C106.775 90.2913 104.875 99.4656 103.348 106.837C102.135 112.638 99.6903 118.111 96.1809 122.887C92.6314 127.768 87.4627 131.204 80.3789 133.388C67.4431 137.382 55.3364 135.226 43.3648 126.798C42.184 126.014 41.1511 125.027 40.3135 123.883C38.2677 120.949 36.3754 117.913 34.6441 114.783C32.0095 109.894 29.3513 104.65 26.7443 99.1965C22.7407 90.8295 17.6277 84.2405 11.1031 79.0535C9.99866 78.1707 9.06883 77.089 8.36156 75.8643C8.16203 75.5539 8.03116 75.2034 7.97767 74.8385C7.92411 74.4729 7.94918 74.1001 8.05118 73.745C8.21237 73.3433 8.45561 72.9791 8.7654 72.6765C9.07513 72.3733 9.44458 72.1389 9.8502 71.9867C11.1393 71.4124 12.5357 71.119 13.947 71.1249C14.7108 71.1275 15.4726 71.2017 16.2226 71.3461C21.959 72.4225 25.8005 74.5562 28.3129 78.0617C29.1977 79.4551 29.8805 80.9673 30.3411 82.5524C30.4796 82.9567 30.6187 83.3597 30.7631 83.7561C31.3236 85.2965 32.1086 86.7234 34.0389 86.7359C35.7683 86.7306 36.9799 85.6936 37.4321 83.848C37.6841 82.8484 37.8076 81.8212 37.7997 80.7901V80.7908Z" fill="#e0e0e0"/></g></svg>';
+
+          // Position hand at the logo's current fallen position
+          var logoRect = logo.getBoundingClientRect();
+          hand.style.top = (logoRect.top - 5) + 'px';
+          document.body.appendChild(hand);
+
+          // Phase A: Hand reaches in from left
+          setTimeout(function() {
+            hand.classList.add('reach');
+          }, 50);
+
+          // Phase B: Hand grabs logo, lifts it back up
+          setTimeout(function() {
+            // Move logo back to original position
+            logo.style.transition = 'transform 0.8s ease-in-out';
+            logo.style.transform = 'rotate(-2deg) translateY(0)';
+
+            // Hand follows the logo up
+            var wrapperRect = wrapper.getBoundingClientRect();
+            hand.style.transition = 'top 0.8s ease-in-out, left 0.6s ease-in-out';
+            hand.style.top = (wrapperRect.top - 5) + 'px';
+          }, 900);
+
+          // Phase C: Tape reappears (hand "sticks" it)
+          setTimeout(function() {
+            logo.style.setProperty('--tape-opacity', '1');
+          }, 1700);
+
+          // Phase D: Hand retracts
+          setTimeout(function() {
+            hand.classList.remove('reach');
+            hand.classList.add('retract');
+          }, 2000);
+
+          // Cleanup
+          setTimeout(function() {
+            hand.remove();
+
+            // Restore sway
+            logo.style.transition = '';
+            logo.style.transform = '';
+            logo.style.animation = '';
+            logo.style.setProperty('--tape-opacity', '1');
+            fallen = false;
+          }, 2700);
+        }
+      })();
+
+      document.getElementById('destroy-btn').addEventListener('click', function() {
+        var btn = this;
+        btn.style.display = 'none';
+
+        var targets = document.querySelectorAll('header, header *, main, main > *, main > * > *, footer');
+
+        targets.forEach(function(el) {
+          var delay = Math.random() * 0.6;
+          var duration = 0.8 + Math.random() * 0.8;
+          var rotate = (Math.random() - 0.5) * 60;
+          var drift = (Math.random() - 0.5) * 200;
+          var distance = 100 + Math.random() * 40;
+
+          el.style.setProperty('--fall-delay', delay + 's');
+          el.style.setProperty('--fall-duration', duration + 's');
+          el.style.setProperty('--fall-rotate', rotate + 'deg');
+          el.style.setProperty('--fall-drift', drift + 'px');
+          el.style.setProperty('--fall-distance', distance + 'vh');
+          el.classList.add('falling');
+        });
+
+        setTimeout(function() {
+          document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;color:#ff6450;font-family:Courier New,monospace;text-align:center;"><div style="font-size:2rem;margin-bottom:1rem;">$ rm -rf /</div><div style="color:#666;font-size:1rem;">everything is gone. happy now?</div><div style="margin-top:2rem;"><a href="/" style="color:#ff6450;text-decoration:none;border:1px solid #ff6450;padding:0.5rem 1.5rem;border-radius:4px;">sudo reboot</a></div></div>';
+        }, 2000);
+      });
+    </script>
   </body>
 </html>
