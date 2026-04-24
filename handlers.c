@@ -1,64 +1,53 @@
 #include "handlers.h"
 #include "file_utils.h"
 #include "html.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+enum MHD_Result handle_page(struct MHD_Connection *connection,
+                            const char *template_name) {
+    char *html = render_page(template_name);
+    enum MHD_Result ret = send_html(connection, html, MHD_HTTP_OK);
+    free(html);
+    return ret;
+}
+
+enum MHD_Result handle_fragment(struct MHD_Connection *connection,
+                                const char *template_name) {
+    char path[256];
+    snprintf(path, sizeof(path), "templates/%s.html", template_name);
+
+    char *html = read_file_str(path);
+    enum MHD_Result ret = send_html(connection, html, MHD_HTTP_OK);
+    free(html);
+    return ret;
+}
+
+enum MHD_Result handle_static(struct MHD_Connection *connection,
+                              const char *path, const char *mime) {
+    size_t len;
+    char *buf = read_file(path, &len);
+    if (!buf)
+        return handle_404(connection);
+
+    struct MHD_Response *response =
+        MHD_create_response_from_buffer(len, buf, MHD_RESPMEM_MUST_FREE);
+
+    if (!response) {
+        free(buf);
+        return MHD_NO;
+    }
+
+    MHD_add_response_header(response, "Content-Type", mime);
+    enum MHD_Result ret = MHD_queue_response(connection, MHD_HTTP_OK, response);
+    MHD_destroy_response(response);
+    return ret;
+}
+
 enum MHD_Result handle_404(struct MHD_Connection *connection) {
-  char *html = render_page("404");
-
-  struct MHD_Response *response = MHD_create_response_from_buffer(
-      strlen(html), (void *)html, MHD_RESPMEM_MUST_FREE);
-
-  enum MHD_Result ret =
-      MHD_queue_response(connection, MHD_HTTP_NOT_FOUND, response);
-  MHD_destroy_response(response);
-
-  return ret;
-}
-
-enum MHD_Result handle_home(struct MHD_Connection *connection) {
-  char *html = render_page("home");
-
-  send_html(connection, html);
-  free(html);
-  return MHD_YES;
-}
-
-enum MHD_Result handle_about(struct MHD_Connection *connection) {
-  char *html = render_page("about");
-  send_html(connection, html);
-  free(html);
-  return MHD_YES;
-}
-
-enum MHD_Result handle_contact(struct MHD_Connection *connection) {
-  char *html = render_page("contact");
-  send_html(connection, html);
-  free(html);
-  return MHD_YES;
-}
-
-enum MHD_Result handle_home_frag(struct MHD_Connection *connection) {
-  char *html = read_file_to_string("templates/home.html");
-
-  send_html(connection, html);
-  free(html);
-  return MHD_YES;
-}
-
-enum MHD_Result handle_about_frag(struct MHD_Connection *connection) {
-  char *html = read_file_to_string("templates/about.html");
-
-  send_html(connection, html);
-  free(html);
-  return MHD_YES;
-}
-
-enum MHD_Result handle_contact_frag(struct MHD_Connection *connection) {
-  char *html = read_file_to_string("templates/contact.html");
-
-  send_html(connection, html);
-  free(html);
-  return MHD_YES;
+    char *html = render_page("404");
+    enum MHD_Result ret = send_html(connection, html, MHD_HTTP_NOT_FOUND);
+    free(html);
+    return ret;
 }

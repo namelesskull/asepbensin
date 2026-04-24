@@ -1,6 +1,9 @@
 #ifndef FILE_UTILS_H
 #define FILE_UTILS_H
 
-char *read_file_to_string(const char *path);
+#include <stddef.h>
+
+char *read_file(const char *path, size_t *out_len);
+char *read_file_str(const char *path);
 
 #endif
