@@ -1,9 +1,18 @@
 #include "handlers.h"
 #include <microhttpd.h>
+#include <signal.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #define PORT 8080
+
+static volatile sig_atomic_t running = 1;
+
+static void handle_signal(int sig) {
+    (void)sig;
+    running = 0;
+}
 
 typedef enum MHD_Result (*handler_fn)(struct MHD_Connection *);
 
@@ -69,11 +78,20 @@ int main(void) {
         MHD_USE_INTERNAL_POLLING_THREAD, PORT, NULL, NULL, &router, NULL,
         MHD_OPTION_END);
 
-    if (!server)
+    if (!server) {
+        fprintf(stderr, "failed to start server on port %d\n", PORT);
         return 1;
+    }
+
+    signal(SIGINT, handle_signal);
+    signal(SIGTERM, handle_signal);
 
     printf(":%d\n", PORT);
-    getchar();
+
+    while (running)
+        pause();
+
+    printf("\nshutting down\n");
     MHD_stop_daemon(server);
     return 0;
 }
