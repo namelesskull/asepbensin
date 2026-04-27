@@ -10,6 +10,66 @@
 
 <h1>asepbensin</h1>
 
+<button class="honorable-btn" onclick="document.getElementById('memorial-overlay').classList.add('open')">
+  <span class="honorable-flame">&#x1F56F;</span>
+  <span>Tribute to alimsk</span>
+</button>
+
+<!-- Memorial Popup Overlay -->
+<div id="memorial-overlay" class="memorial-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="memorial-popup">
+    <button class="memorial-close" onclick="document.getElementById('memorial-overlay').classList.remove('open')">&times;</button>
+
+    <div class="memorial-avatar">
+      <img src="https://avatars.githubusercontent.com/u/51353996?v=4" alt="alimsk" />
+    </div>
+
+    <h2 class="memorial-name">alimsk</h2>
+    <p class="memorial-years">My brother. My reason to code.</p>
+
+    <div class="memorial-divider"></div>
+
+    <p class="memorial-text">
+      No school. No degree. No formal education at all. Just a kid with a laptop
+      and an obsession to understand how things actually work under the hood.
+      At 15 years old, he was already neck-deep in things that scare
+      senior developers &mdash; writing Go, manipulating
+      Python bytecode, reading C source code for fun. A low-level maniac. No AI,
+      no shortcuts, just pure brain and willpower.
+    </p>
+
+    <p class="memorial-text">
+      He built
+      <a href="https://github.com/alimsk/goto-python" target="_blank" rel="noopener">goto-python</a> &mdash;
+      a goto statement for Python by hacking the bytecode directly.
+      He built
+      <a href="https://github.com/alimsk/list" target="_blank" rel="noopener">list</a> &mdash;
+      a TUI component for Bubbletea in Go.
+      He contributed to open source and earned the Starstruck and Pull Shark
+      badges on GitHub.
+    </p>
+
+    <p class="memorial-text">
+      He proved that you don't need a classroom to become great.
+      You just need the fire. And he had it.
+    </p>
+
+    <div class="memorial-divider"></div>
+
+    <p class="memorial-quote">
+      "He lit the first fire.<br/>Now I carry the torch even further."
+    </p>
+
+
+    <p class="memorial-rip">Rest in Peace alimsk &mdash; 2007&ndash;2023</p>
+
+    <a href="https://github.com/alimsk" target="_blank" rel="noopener" class="memorial-github-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      Visit his GitHub
+    </a>
+  </div>
+</div>
+
 <div class="terminal-section">
   <div class="terminal-window">
     <div class="terminal-titlebar">
@@ -254,6 +314,265 @@
     color: #546e7a;
     font-style: italic;
   }
+
+  /* Honorable Mention Button */
+  .honorable-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: #888;
+    border: 1px solid rgba(255, 180, 80, 0.2);
+    padding: 0.45rem 1.1rem;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .honorable-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 180, 80, 0.05), rgba(255, 120, 60, 0.08));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .honorable-btn:hover::before {
+    opacity: 1;
+  }
+
+  .honorable-btn:hover {
+    color: #ffb050;
+    border-color: rgba(255, 180, 80, 0.5);
+    box-shadow: 0 0 20px rgba(255, 160, 60, 0.1);
+  }
+
+  .honorable-flame {
+    font-size: 1rem;
+    animation: flame-flicker 2s ease-in-out infinite;
+  }
+
+  @keyframes flame-flicker {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  /* Memorial Overlay */
+  .memorial-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    background: rgba(0, 0, 0, 0);
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+    transition: background 0.4s ease;
+  }
+
+  .memorial-overlay.open {
+    display: flex;
+    background: rgba(0, 0, 0, 0.85);
+    animation: overlay-fade-in 0.4s ease forwards;
+  }
+
+  @keyframes overlay-fade-in {
+    from { background: rgba(0, 0, 0, 0); }
+    to { background: rgba(0, 0, 0, 0.85); }
+  }
+
+  /* Memorial Popup */
+  .memorial-popup {
+    position: relative;
+    background: #0f0f1a;
+    border: 1px solid rgba(255, 180, 80, 0.2);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    max-width: 520px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    text-align: center;
+    box-shadow:
+      0 0 60px rgba(255, 160, 60, 0.08),
+      0 25px 80px rgba(0, 0, 0, 0.6);
+    animation: popup-enter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes popup-enter {
+    from {
+      opacity: 0;
+      transform: scale(0.9) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .memorial-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    font-family: 'Courier New', monospace;
+    line-height: 1;
+  }
+
+  .memorial-close:hover {
+    color: #ffb050;
+  }
+
+  .memorial-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin: 0 auto 1.2rem;
+    overflow: hidden;
+    border: 3px solid rgba(255, 180, 80, 0.3);
+    box-shadow: 0 0 30px rgba(255, 160, 60, 0.15);
+  }
+
+  .memorial-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(30%);
+    transition: filter 0.3s;
+  }
+
+  .memorial-popup:hover .memorial-avatar img {
+    filter: grayscale(0%);
+  }
+
+  .memorial-name {
+    font-size: 1.6rem;
+    color: #ffb050;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    letter-spacing: 1px;
+  }
+
+  .memorial-years {
+    color: #777;
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
+    font-style: italic;
+  }
+
+  .memorial-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 180, 80, 0.4), transparent);
+    margin: 1.2rem auto;
+  }
+
+  .memorial-text {
+    color: #aaa;
+    font-size: 0.82rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    text-align: left;
+    padding: 0 0.5rem;
+  }
+
+  .memorial-text a {
+    color: #ffb050;
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(255, 180, 80, 0.3);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .memorial-text a:hover {
+    color: #ffc878;
+    border-color: #ffc878;
+  }
+
+  .memorial-quote {
+    color: #ccc;
+    font-size: 0.9rem;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 0.4rem;
+    padding: 0 1rem;
+  }
+
+  .memorial-author {
+    color: #666;
+    font-size: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .memorial-github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #888;
+    text-decoration: none;
+    font-size: 0.8rem;
+    padding: 0.5rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    transition: all 0.3s;
+  }
+
+  .memorial-github-link:hover {
+    color: #ffb050;
+    border-color: rgba(255, 180, 80, 0.3);
+    background: rgba(255, 180, 80, 0.05);
+  }
+
+  .memorial-github-link svg {
+    flex-shrink: 0;
+  }
+
+  .memorial-rip {
+    color: #666;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Memorial popup scrollbar */
+  .memorial-popup::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .memorial-popup::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .memorial-popup::-webkit-scrollbar-thumb {
+    background: rgba(255, 180, 80, 0.2);
+    border-radius: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .memorial-popup {
+      padding: 2rem 1.2rem;
+      max-height: 80vh;
+    }
+
+    .memorial-name {
+      font-size: 1.3rem;
+    }
+
+    .memorial-text {
+      font-size: 0.78rem;
+    }
+  }
 </style>
 
 <script>
@@ -337,6 +656,14 @@
   document.addEventListener('scroll', resetIdle);
   resetIdle();
 })();
+
+// Memorial popup ESC key close
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var overlay = document.getElementById('memorial-overlay');
+    if (overlay) overlay.classList.remove('open');
+  }
+});
 
 // Profile photo hover bubble
 (function() {
