@@ -32,9 +32,11 @@ typedef struct {
 static const route routes[] = {
     {"/",             ROUTE_PAGE,     "home",    NULL},
     {"/about",        ROUTE_PAGE,     "about",   NULL},
+    {"/labs",         ROUTE_PAGE,     "labs",    NULL},
     {"/contact",      ROUTE_PAGE,     "contact", NULL},
     {"/home-frag",    ROUTE_FRAGMENT, "home",    NULL},
     {"/about-frag",   ROUTE_FRAGMENT, "about",   NULL},
+    {"/labs-frag",    ROUTE_FRAGMENT, "labs",    NULL},
     {"/contact-frag", ROUTE_FRAGMENT, "contact", NULL},
     {"/js/htmx.min.js", ROUTE_STATIC, "assets/htmx.min.js", "application/javascript"},
 };

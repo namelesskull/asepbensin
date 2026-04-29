@@ -46,6 +46,16 @@
         height: 100%;
       }
 
+      /* Hide scrollbar desktop only */
+      @media (min-width: 769px) {
+        html {
+          scrollbar-width: none;
+        }
+        html::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
       body {
         display: flex;
         flex-direction: column;
@@ -461,7 +471,7 @@
         border-top: none;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
         gap: 0.6rem;
         overflow: hidden;
@@ -517,31 +527,10 @@
         50% { opacity: 0; }
       }
 
-      .footer-tape {
-        position: relative;
-        background: rgba(255, 100, 80, 0.12);
-        border: 1px solid rgba(255, 100, 80, 0.15);
-        padding: 0.2rem 0.8rem;
-        border-radius: 2px;
-        color: #ff6450;
-        font-size: 0.7rem;
-        font-style: italic;
-        transform: rotate(-1.5deg);
-        white-space: nowrap;
-        user-select: none;
-        flex-shrink: 0;
-      }
-
-      .footer-tape::before {
-        content: '';
-        position: absolute;
-        top: -4px;
-        left: 50%;
-        transform: translateX(-50%) rotate(5deg);
-        width: 20px;
-        height: 7px;
-        background: rgba(255, 100, 80, 0.25);
-        border-radius: 1px;
+      .footer-output {
+        color: #999;
+        font-size: 0.8rem;
+        font-family: 'Courier New', monospace;
       }
 
       @media (max-width: 768px) {
@@ -561,8 +550,8 @@
           display: none;
         }
 
-        .footer-tape {
-          font-size: 0.6rem;
+        .footer-output {
+          font-size: 0.7rem;
         }
       }
 
@@ -647,6 +636,9 @@
             navigateTo('/about-frag', '/about');
             break;
           case '3':
+            navigateTo('/labs-frag', '/labs');
+            break;
+          case '4':
             navigateTo('/contact-frag', '/contact');
             break;
           case 'd':
@@ -711,7 +703,8 @@
       <nav id="nav">
         <a hx-get="/home-frag" hx-target="#main" hx-push-url="/">~/home <span class="nav-hint">[1]</span></a>
         <a hx-get="/about-frag" hx-target="#main" hx-push-url="about">~/about <span class="nav-hint">[2]</span></a>
-        <a hx-get="/contact-frag" hx-target="#main" hx-push-url="/contact">~/contact <span class="nav-hint">[3]</span></a>
+        <a hx-get="/labs-frag" hx-target="#main" hx-push-url="/labs">~/labs <span class="nav-hint">[3]</span></a>
+        <a hx-get="/contact-frag" hx-target="#main" hx-push-url="/contact">~/contact <span class="nav-hint">[4]</span></a>
         <a
           href="https://youtu.be/xvFZjo5PgG0?si=hyM4W77D9UCh9GSq"
           class="cta-button"
@@ -742,6 +735,9 @@
         <a hx-get="/about-frag" hx-target="#main" hx-push-url="about" class="mobile-nav-link" onclick="closeMobileNav()">
           <span class="mobile-nav-prefix">drwxr-xr-x</span> about/
         </a>
+        <a hx-get="/labs-frag" hx-target="#main" hx-push-url="/labs" class="mobile-nav-link" onclick="closeMobileNav()">
+          <span class="mobile-nav-prefix">drwxr-xr-x</span> labs/
+        </a>
         <a hx-get="/contact-frag" hx-target="#main" hx-push-url="/contact" class="mobile-nav-link" onclick="closeMobileNav()">
           <span class="mobile-nav-prefix">drwxr-xr-x</span> contact/
         </a>
@@ -759,10 +755,10 @@
     <footer class="site-footer">
       <div class="footer-terminal">
         <span class="footer-prompt">$</span>
-        <span class="footer-text">Made with pain using C programming language.</span>
+        <span class="footer-text">cat ./footer.txt</span>
         <span class="footer-cursor"></span>
       </div>
-      <div class="footer-tape">i use arch btw</div>
+      <div class="footer-output">Made with pain using C programming language.</div>
     </footer>
 
     <button id="destroy-btn" title="Don't.">rm -rf /</button>
@@ -814,7 +810,8 @@
       #shutdown-btn {
         position: fixed;
         bottom: 1.5rem;
-        left: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
         background: rgba(40, 200, 64, 0.1);
         color: #28c840;
         border: 1px solid #28c840;
@@ -1252,6 +1249,140 @@
           document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;color:#ff6450;font-family:Courier New,monospace;text-align:center;"><div style="font-size:2rem;margin-bottom:1rem;">$ rm -rf /</div><div style="color:#666;font-size:1rem;">everything is gone. happy now?</div><div style="margin-top:2rem;"><a href="/" style="color:#ff6450;text-decoration:none;border:1px solid #ff6450;padding:0.5rem 1.5rem;border-radius:4px;">sudo reboot</a></div></div>';
         }, 2000);
       });
+    </script>
+
+    <!-- Scroll buttons (desktop only) -->
+    <div id="scroll-nav" class="scroll-nav">
+      <div class="scroll-marker">
+        <span class="scroll-marker-text">no scrollbar, if your<br/>mouse scroll is broken<br/>use this instead</span>
+        <svg class="scroll-marker-arrow" viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 5 C 15 30, 35 55, 50 75" stroke="#ff6450" stroke-width="1.5" stroke-linecap="round" fill="none" stroke-dasharray="5 4"/>
+          <path d="M44 70 L50 78 L54 68" stroke="#ff6450" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <button class="scroll-btn" id="scroll-up-btn" aria-label="Scroll up">^</button>
+      <button class="scroll-btn" id="scroll-down-btn" aria-label="Scroll down">v</button>
+    </div>
+
+    <style>
+      .scroll-nav {
+        position: fixed;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        display: none;
+        flex-direction: column;
+        gap: 0.5rem;
+        z-index: 998;
+      }
+
+      @media (min-width: 769px) {
+        .scroll-nav {
+          display: flex;
+        }
+      }
+
+      .scroll-btn {
+        width: 36px;
+        height: 36px;
+        background: rgba(20, 20, 42, 0.9);
+        color: #ff6450;
+        border: 1px solid rgba(255, 100, 80, 0.3);
+        border-radius: 6px;
+        font-family: 'Courier New', monospace;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+
+      .scroll-btn:hover {
+        background: rgba(255, 100, 80, 0.15);
+        border-color: #ff6450;
+        box-shadow: 0 0 12px rgba(255, 100, 80, 0.2);
+      }
+
+      .scroll-btn:active {
+        transform: scale(0.92);
+      }
+
+      .scroll-marker {
+        position: absolute;
+        right: 50px;
+        top: -20px;
+        display: flex;
+        align-items: flex-start;
+        gap: 2px;
+        pointer-events: none;
+        opacity: 0.55;
+        transition: opacity 5s ease 3s;
+      }
+
+      .scroll-nav.marker-hidden .scroll-marker {
+        opacity: 0;
+      }
+
+      .scroll-marker-text {
+        color: #ff6450;
+        font-family: 'Courier New', monospace;
+        font-size: 0.6rem;
+        font-style: italic;
+        line-height: 1.4;
+        white-space: nowrap;
+        text-align: right;
+        margin-top: 2px;
+      }
+
+      .scroll-marker-arrow {
+        width: 50px;
+        height: 70px;
+        flex-shrink: 0;
+        margin-top: 5px;
+      }
+    </style>
+
+    <script>
+      (function() {
+        var upBtn = document.getElementById('scroll-up-btn');
+        var downBtn = document.getElementById('scroll-down-btn');
+        var scrollNav = document.getElementById('scroll-nav');
+        if (!upBtn || !downBtn || !scrollNav) return;
+
+        var scrollStep = 200;
+        var scrollInterval = null;
+
+        function startScroll(dir) {
+          window.scrollBy({ top: dir * scrollStep, behavior: 'smooth' });
+          scrollInterval = setInterval(function() {
+            window.scrollBy({ top: dir * scrollStep, behavior: 'smooth' });
+          }, 300);
+        }
+
+        function stopScroll() {
+          clearInterval(scrollInterval);
+          scrollInterval = null;
+        }
+
+        upBtn.addEventListener('mousedown', function() { startScroll(-1); });
+        downBtn.addEventListener('mousedown', function() { startScroll(1); });
+        document.addEventListener('mouseup', stopScroll);
+
+        upBtn.addEventListener('click', function() {
+          window.scrollBy({ top: -scrollStep, behavior: 'smooth' });
+        });
+        downBtn.addEventListener('click', function() {
+          window.scrollBy({ top: scrollStep, behavior: 'smooth' });
+        });
+
+        // Fade out marker after first scroll
+        window.addEventListener('scroll', function() {
+          scrollNav.classList.add('marker-hidden');
+        }, { once: true });
+      })();
     </script>
   </body>
 </html>
